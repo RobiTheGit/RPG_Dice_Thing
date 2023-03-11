@@ -14,12 +14,14 @@ class App(tk.Frame):
         global mods
         global lucktype
         global output
+        global die
         
         lucktype = tk.IntVar()       
         mods = tk.IntVar()
         luck = tk.IntVar()
         mini = tk.IntVar()
         maxi = tk.IntVar()
+        die = tk.IntVar()
         
         l1 = tk.Label(text="Die min and max")
         l1.pack()
@@ -42,7 +44,15 @@ class App(tk.Frame):
         self.contents3 = tk.StringVar()
         self.contents3.set("")
         self.entrythingy3["textvariable"] = self.contents3
-                   
+        
+        l3 = tk.Label(text="Die To Roll")
+        l3.pack()
+        self.entrythingy4 = tk.Entry()
+        self.entrythingy4.pack()
+        self.contents4 = tk.StringVar()
+        self.contents4.set("1")
+        self.entrythingy4["textvariable"] = self.contents4  
+                        
         c1 = tk.Checkbutton(root, text='Lucky',variable=luck, onvalue=True, offvalue=False)
         c1.pack()
         
@@ -53,12 +63,12 @@ class App(tk.Frame):
         text = 'Run Simulation', 
         command = self.run, 
         height=3, 
-        width=9)
+        width=10)
         B.pack()
         
         output = tk.Text(
         root,
-        state='normal',
+        state='disabled',
         height = 400
         )  
         output.pack()
@@ -78,18 +88,22 @@ class App(tk.Frame):
         mini = self.entrythingy.get()
         maxi = self.entrythingy2.get() 
         mods = self.entrythingy3.get() 
+        die = self.entrythingy4.get() 
         attackroll.mini = mini
         attackroll.maxi = maxi
         attackroll.mods = mods
+        attackroll.die = die
         self.setluck()
         self.setlucktype()
         attackroll.main()
+        output.configure(state='normal')
         output.delete(1.0, END)
         str1 = attackroll.opt
         output.insert(END, str1)
         if attackroll.luck == True:
             str2 = attackroll.opt2
-            output.insert(END, str2)        
+            output.insert(END, str2)  
+        output.configure(state='disabled')      
 if __name__ == "__main__":
     root = tk.Tk()
     root.geometry('500x500')

@@ -4,37 +4,15 @@ import random
 def Average(lst):
     return sum(lst) / len(lst)
     
-def remove1():
-    try:
-        numlist.remove(1)
-        remove1()
-    except:
-        if lucktype == 2:
-            remove2()
-        else:
-            finalize()
-        
-def remove2():
-    try:
-        numlist.remove(2)
-        remove2()
-    except:
-        finalize() 
-        
-def finalize():  
-    while len(numlist) != 100:
-        num = random.randint(mini,maxi)
-        num += mods
-        numlist.append(num)
 def main():
     global luck
     global mini
     global maxi
-    global r1 
-    global r2 
     global numlist 
+    global temptnumlist 
     global mods
     global lucktype
+    global die
     luck = input("Is luck True or False: ")
     if luck.upper() == "TRUE":
         luck = True
@@ -47,8 +25,13 @@ def main():
             lucktype = 1
             
         print(lucktype)
+    die = input('dice to roll: ')
     mini = input("minimum number for the die: ")
     maxi = input("maximun number for the die: ")
+    try:
+        die = int(die)
+    except:
+        die = 1
     try:
         mini = int(mini)
     except:
@@ -63,26 +46,38 @@ def main():
         mods = int(mods)
     except:
         mods = 0
-    numlist = [] 
+    numlist = []
+    temptnumlist = []  
     global x
     x = 0        
     while x != 100:
-        num = random.randint(mini,maxi)
+        for y in range(die):
+            while len(temptnumlist) != die:
+                num = random.randint(mini,maxi)
+                if luck == True:
+                    if lucktype == 1:
+                        if num == 1:
+                           num = random.randint(mini,maxi)
+                           temptnumlist.append(num)
+                        else:
+                            temptnumlist.append(num)
+                    if lucktype == 2:
+                        if num == 1 or num == 2:
+                            num = random.randint(mini,maxi)
+                            temptnumlist.append(num)
+                        else:
+                            temptnumlist.append(num) 
+                else:
+                    temptnumlist.append(num)
+        
+        num = sum(temptnumlist)
         num += mods
         numlist.append(num)
+        temptnumlist.clear()
         x += 1
-    print('Normal Rolls:')
+    print('Rolls:')
     print(numlist, len(numlist))
     average = Average(numlist)
-    print('Your average hit role is', average)
-
-    if luck == True:
-        remove1()
-        print('With Lucky:')
-        print(numlist, len(numlist))
-        average = Average(numlist)
-        print('Your average hit role is', average)
-    else:
-        pass
+    print('Your average hit roll is', average)
 if __name__ == '__main__':
     main()
