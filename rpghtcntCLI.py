@@ -30,6 +30,8 @@ def main():
     maxi = input("maximun number for the die: ")
     try:
         die = int(die)
+        if die > 100:
+            die = 100
     except:
         die = 1
     try:
