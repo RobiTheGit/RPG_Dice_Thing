@@ -26,18 +26,18 @@ class App(tk.Frame):
         leftframe = customtkinter.CTkFrame(
         root
         )        
-        leftframe.pack(side = LEFT, fill=BOTH, anchor = NE, padx = 5)
+        leftframe.pack(side = LEFT, fill=X, anchor = NE, padx = 5)
         
         topframe = customtkinter.CTkFrame(
         root 
         )
-        topframe.pack(side = TOP, fill=BOTH)
+        topframe.pack(side = TOP, fill=X)
                 
         bottomframe = customtkinter.CTkFrame(
         root 
         )
-        bottomframe.pack(side = TOP, fill=BOTH, pady = 5)
-                
+        bottomframe.pack(side = TOP, fill=BOTH, pady = 5, expand=1)
+                       
         l1 = customtkinter.CTkLabel(leftframe, text="Die min and max")
         l1.pack()
         self.entrythingy = customtkinter.CTkEntry(leftframe, placeholder_text="1")
@@ -77,7 +77,7 @@ class App(tk.Frame):
         B = customtkinter.CTkButton(topframe, 
         text = 'Run Simulation',
         command = self.run, 
-        font = ('Segoe UI', 25),
+        font = ('Z003', 25),
         height=70, 
         width=100)
         B.pack()
@@ -125,7 +125,9 @@ class App(tk.Frame):
         output.configure(state='disabled')  
             
 if __name__ == "__main__":
-    root = customtkinter.CTk()
+    title = "RPG Die Thing"
+    root = customtkinter.CTk(className = "RPGDT")
     root.geometry('500x450')
     myapp = App(root)
+    myapp.master.title(title)
     myapp.mainloop()
