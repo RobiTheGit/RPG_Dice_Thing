@@ -4,6 +4,7 @@ from tkinter import *
 import customtkinter
 import tkinter as tk
 import attackroll
+import sys
 global output
 class App(tk.Frame):
     def __init__(self, master):
@@ -16,6 +17,7 @@ class App(tk.Frame):
         global lucktype
         global output
         global die
+        global c2
         
         lucktype = tk.IntVar()       
         mods = tk.IntVar()
@@ -38,40 +40,40 @@ class App(tk.Frame):
         )
         bottomframe.pack(side = TOP, fill=BOTH, pady = 5, expand=1)
                        
-        l1 = customtkinter.CTkLabel(leftframe, text="Die min and max")
+        l1 = customtkinter.CTkLabel(leftframe, text="Die min and max", font = ('Z003', 16))
         l1.pack()
-        self.entrythingy = customtkinter.CTkEntry(leftframe, placeholder_text="1")
+        self.entrythingy = customtkinter.CTkEntry(leftframe, placeholder_text="1", font = ('Z003', 16))
         self.entrythingy.pack()
         self.contents = tk.StringVar()
         self.contents.set("1")
         self.entrythingy["textvariable"] = self.contents
         
-        self.entrythingy2 = customtkinter.CTkEntry(leftframe, placeholder_text="6")
+        self.entrythingy2 = customtkinter.CTkEntry(leftframe, placeholder_text="6", font = ('Z003', 16))
         self.entrythingy2.pack()
         self.contents2 = tk.StringVar()
         self.contents2.set("6")
         self.entrythingy2["textvariable"] = self.contents2
          
-        l2 = customtkinter.CTkLabel(leftframe, text="Modifiers (+ or -)")
+        l2 = customtkinter.CTkLabel(leftframe, text="Modifiers (+ or -)", font = ('Z003', 16))
         l2.pack()
-        self.entrythingy3 = customtkinter.CTkEntry(leftframe, placeholder_text="0")
+        self.entrythingy3 = customtkinter.CTkEntry(leftframe, placeholder_text="0", font = ('Z003', 16))
         self.entrythingy3.pack()
         self.contents3 = tk.StringVar()
         self.contents3.set("")
         self.entrythingy3["textvariable"] = self.contents3
         
-        l3 = customtkinter.CTkLabel(leftframe, text="Die To Roll")
+        l3 = customtkinter.CTkLabel(leftframe, text="Die To Roll", font = ('Z003', 16))
         l3.pack()
-        self.entrythingy4 = customtkinter.CTkEntry(leftframe, placeholder_text="1")
+        self.entrythingy4 = customtkinter.CTkEntry(leftframe, placeholder_text="1", font = ('Z003', 16))
         self.entrythingy4.pack()
         self.contents4 = tk.StringVar()
         self.contents4.set("1")
         self.entrythingy4["textvariable"] = self.contents4  
                         
-        c1 = customtkinter.CTkCheckBox(leftframe, text='Lucky',variable=luck, onvalue=True, offvalue=False)
+        c1 = customtkinter.CTkCheckBox(leftframe, text='Lucky',variable=luck, onvalue=True, offvalue=False, command=self.enablelr2s, font = ('Z003', 16))
         c1.pack()
         
-        c2 = customtkinter.CTkCheckBox(leftframe, text='Lucky Removes 2\'s',variable=lucktype, onvalue=2, offvalue=1)
+        c2 = customtkinter.CTkCheckBox(leftframe, text='Lucky Removes 2\'s',variable=lucktype, onvalue=2, offvalue=1, state='disabled', font = ('Z003', 16))
         c2.pack()  
              
         B = customtkinter.CTkButton(topframe, 
@@ -82,6 +84,18 @@ class App(tk.Frame):
         width=100)
         B.pack()
         
+        blank = customtkinter.CTkLabel(leftframe, text="\n")
+        blank.pack() 
+            
+        exitbutton = customtkinter.CTkButton(
+        leftframe,
+        text = '        Exit        ',
+        command = self.exit, 
+        font = ('Z003', 25),
+        height=3,
+        width=8)
+        exitbutton.pack(side = BOTTOM, anchor = SE)
+                
         output = customtkinter.CTkTextbox(
         bottomframe,
         state='disabled',
@@ -89,7 +103,14 @@ class App(tk.Frame):
         width = 400
         )  
         output.pack()
-        
+    def enablelr2s(self):
+        global c2
+        if luck.get() == True:
+            c2.configure(state='normal')
+            c2.update()
+        else:
+            c2.configure(state='disabled')
+            c2.update()
     def setluck(self):
         if luck.get() == True:
             attackroll.luck = True
@@ -102,7 +123,8 @@ class App(tk.Frame):
             attackroll.lucktype = 2
         else:
             attackroll.lucktype = 1
-            
+    def exit(self):
+        sys.exit(0)            
     def run(self):
         mini = self.entrythingy.get()
         maxi = self.entrythingy2.get() 
