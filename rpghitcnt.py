@@ -18,7 +18,7 @@ class App(tk.Frame):
         global output
         global die
         global c2
-        
+        global toroll       
         lucktype = tk.IntVar()       
         mods = tk.IntVar()
         luck = tk.IntVar()
@@ -39,7 +39,9 @@ class App(tk.Frame):
         root 
         )
         bottomframe.pack(side = TOP, fill=BOTH, pady = 5, expand=1)
-                       
+        l0 = customtkinter.CTkLabel(topframe, text="RPG Die Average Calculation Tool", font = ('Z003', 20))
+        l0.pack()
+                               
         l1 = customtkinter.CTkLabel(leftframe, text="Die min and max", font = ('Z003', 16))
         l1.pack()
         self.entrythingy = customtkinter.CTkEntry(leftframe, placeholder_text="1", font = ('Z003', 16))
@@ -68,8 +70,16 @@ class App(tk.Frame):
         self.entrythingy4.pack()
         self.contents4 = tk.StringVar()
         self.contents4.set("1")
-        self.entrythingy4["textvariable"] = self.contents4  
-                        
+        self.entrythingy4["textvariable"] = self.contents4 
+        
+        l3 = customtkinter.CTkLabel(leftframe, text="How many times are the die rolled", font = ('Z003', 16))
+        l3.pack()         
+        self.entrythingy5 = customtkinter.CTkEntry(leftframe, placeholder_text="1", font = ('Z003', 16))
+        self.entrythingy5.pack()
+        self.contents5 = tk.StringVar()
+        self.contents5.set("1")
+        self.entrythingy5["textvariable"] = self.contents5  
+                               
         c1 = customtkinter.CTkCheckBox(leftframe, text='Lucky',variable=luck, onvalue=True, offvalue=False, command=self.enablelr2s, font = ('Z003', 16))
         c1.pack()
         
@@ -130,10 +140,12 @@ class App(tk.Frame):
         maxi = self.entrythingy2.get() 
         mods = self.entrythingy3.get() 
         die = self.entrythingy4.get() 
+        toroll = self.entrythingy5.get()
         attackroll.mini = mini
         attackroll.maxi = maxi
         attackroll.mods = mods
         attackroll.die = die
+        attackroll.toroll = toroll
         self.setluck()
         self.setlucktype()
         attackroll.main()
@@ -147,8 +159,8 @@ class App(tk.Frame):
         output.configure(state='disabled')  
             
 if __name__ == "__main__":
-    title = "RPG Die Thing"
-    root = customtkinter.CTk(className = "RPGDT")
+    title = "RPG Die Tool"
+    root = customtkinter.CTk(className = "Rpg Die Tool")
     root.geometry('500x450')
     myapp = App(root)
     myapp.master.title(title)

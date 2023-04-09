@@ -13,6 +13,7 @@ def main():
     global mods
     global lucktype
     global die
+    global toroll
     luck = input("Is luck True or False: ")
     if luck.upper() == "TRUE":
         luck = True
@@ -28,6 +29,7 @@ def main():
     die = input('dice to roll: ')
     mini = input("minimum number for the die: ")
     maxi = input("maximun number for the die: ")
+    toroll = input('how many times to roll these dies? ')
     try:
         die = int(die)
         if die > 100:
@@ -50,9 +52,15 @@ def main():
         mods = 0
     numlist = []
     temptnumlist = []  
+    try:
+        toroll = abs(int(toroll))
+        if toroll > 100:
+            toroll = 100
+    except:
+        toroll = 1
     global x
     x = 0        
-    while x != 100:
+    while x != toroll:
         for y in range(die):
             while len(temptnumlist) != die:
                 num = random.randint(mini,maxi)

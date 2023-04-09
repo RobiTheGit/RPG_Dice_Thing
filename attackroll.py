@@ -1,6 +1,6 @@
 import random
 import rpghitcnt
-#This is just doing all of the math for the gui version, please don't run this on it's own, it wont do anything if you do
+#This is just doing all of the math for the gui version, please don't run this on it's own, it wont do anything if you do, well acutally it will, but you wouldn't be able to tell
 global opt
 global opt2
 opt = ''
@@ -16,6 +16,7 @@ def main():
     global mods
     global lucktype
     global die
+    global toroll
     try:
         die = int(die)
         if die > 100:
@@ -37,8 +38,14 @@ def main():
     numlist = []
     temptnumlist = []     
     global x
-    x = 0        
-    while x != 100:
+    x = 0   
+    try:
+        toroll = abs(int(toroll))
+        if toroll > 100:
+            toroll = 100
+    except:
+        toroll = 1     
+    while x != toroll:
         for y in range(die):
             while len(temptnumlist) != die:
                 num = random.randint(mini,maxi)
