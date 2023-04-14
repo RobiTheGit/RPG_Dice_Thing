@@ -18,7 +18,9 @@ class App(tk.Frame):
         global output
         global die
         global c2
-        global toroll       
+        global toroll    
+        photo = PhotoImage(file ="dieicon.png")
+        root.iconphoto(False, photo)   
         lucktype = tk.IntVar()       
         mods = tk.IntVar()
         luck = tk.IntVar()
