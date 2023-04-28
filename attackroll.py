@@ -1,10 +1,10 @@
 import random
 import rpghitcnt
+import re
 #This is just doing all of the math for the gui version, please don't run this on it's own, it wont do anything if you do, well acutally it will, but you wouldn't be able to tell
+#Basically, it would run the simulation with the deaults, and no output, I have tested it
 global opt
-global opt2
 opt = ''
-opt2 = ''
 def Average(lst):
     return sum(lst) / len(lst)
 def main():
@@ -73,7 +73,7 @@ def main():
     normal = 'Rolls:'
     numbers = f'{numlist} {len(numlist)}'
     average = Average(numlist)
-    averageoutput = f'Your average hit roll is {average}'
+    averageoutput = f'Your average hit roll is {re.sub(".0", "", str(round(average, 0)))}'
     global opt
     opt = f"""
 {normal}

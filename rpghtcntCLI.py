@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import random
+import re
 
 def Average(lst):
     return sum(lst) / len(lst)
@@ -88,6 +89,6 @@ def main():
     print('Rolls:')
     print(numlist, len(numlist))
     average = Average(numlist)
-    print('Your average hit roll is', average)
+    print('Your average hit roll is', re.sub(".0", "", str(round(average, 0)))
 if __name__ == '__main__':
     main()
